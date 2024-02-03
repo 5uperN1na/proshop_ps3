@@ -1,13 +1,25 @@
+import { useEffect, useState} from 'react';
 import { useParams, Link } from 'react-router-dom'
-import products from '../products'
+//import products from '../products'
 import Rating from '../components/Rating'
 import { ListGroup, Row, Col, Image, Button } from 'react-bootstrap';
+import axios from 'axios';
 
 const ProductScreen = () => {
-  const { id: productId } = useParams();
-  const product = products.find((p) => p._id === productId);
-  console.log(product);
 
+  const [product, setProduct] = useState({});
+
+  const { id: productId } = useParams();
+  // const product = products.find((p) => p._id === productId);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const { data } = await axios.get(`/api/products/${productId}`);
+      setProduct(data);
+    };
+   
+    fetchProduct();
+  }, [productId]);
 
   return (
 
@@ -41,7 +53,7 @@ const ProductScreen = () => {
             <ListGroup.Item>
               Price: <strong>${product.price}</strong>
             </ListGroup.Item>
-            
+
             <ListGroup.Item>
               Status: <strong>{product.countInStock > 0 ? "In Stock" : "Out of Stock"}</strong>
             </ListGroup.Item>
