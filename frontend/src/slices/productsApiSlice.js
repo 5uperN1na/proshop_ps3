@@ -6,8 +6,11 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         getProducts: builder.query({
             query: () => ({
                 url: PRODUCTS_URL,
-            })
-        })
+            }),
+            keepUnusedDataFor: 5,
+        }),
 
     }),
 });
+
+export const{useGetProductsQuery} = productsApiSlice;
