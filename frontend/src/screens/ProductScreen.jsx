@@ -1,4 +1,5 @@
 
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom'
 import Rating from '../components/Rating'
 import { ListGroup, Row, Col, Image, Button } from 'react-bootstrap';
@@ -9,10 +10,9 @@ import { useGetProductDetailsQuery } from '../slices/productsApiSlice';
 
 const ProductScreen = () => {
 
-
-
   const { id: productId } = useParams();
 
+  const [qty, setQty] = useState(1);
 
   const { data: product, isLoading, error } = useGetProductDetailsQuery(productId);
 
