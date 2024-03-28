@@ -40,3 +40,38 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     res.send ('update user profile');
 
 });
+
+//@desc get users
+//@route GET/api/users/
+//@access private/admin
+const getUsers = asyncHandler(async (req, res) => {
+    res.send ('get users');
+
+});
+
+//@desc update user by id
+//@route PUT/api/users/:id
+//@access private/admin
+const updateUser = asyncHandler(async (req, res) => {
+    res.send ('update user by id');
+
+});
+
+//@desc get users
+//@route delete/api/users/
+//@access private/admin
+const deleteUser = asyncHandler(async (req, res) => {
+    res.send ('delete user');
+
+});
+
+export {
+    authUser,
+    registerUser,
+    logoutUser,
+    getUserProfile,
+    updateUserProfile,
+    getUsers,
+    deleteUser,
+    updateUser,
+} 
