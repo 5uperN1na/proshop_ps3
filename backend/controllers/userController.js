@@ -49,6 +49,14 @@ const getUsers = asyncHandler(async (req, res) => {
 
 });
 
+//@desc get user by id
+//@route GET/api/users/:id
+//@access private/admin
+const getUserById = asyncHandler(async (req, res) => {
+    res.send ('get user by id');
+
+})
+
 //@desc update user by id
 //@route PUT/api/users/:id
 //@access private/admin
@@ -57,7 +65,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
 });
 
-//@desc get users
+//@desc delete users
 //@route delete/api/users/
 //@access private/admin
 const deleteUser = asyncHandler(async (req, res) => {
@@ -74,4 +82,5 @@ export {
     getUsers,
     deleteUser,
     updateUser,
+    getUserById
 } 
