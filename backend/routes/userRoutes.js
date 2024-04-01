@@ -11,7 +11,8 @@ import {  authUser,
     getUserById } from '../controllers/userController.js';
 
 router.route('/').post(registerUser).get(getUsers);
-router.post('/logout, logoutUser');
+// router.post('/logout, logoutUser');
+router.route('/logout').post(logoutUser);
 //router.post('/login, authUser');
 router.route('/login').post(authUser);
 router.route('/profile').get(getUserProfile).put(updateUserProfile);
