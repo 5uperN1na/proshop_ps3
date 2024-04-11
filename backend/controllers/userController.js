@@ -41,7 +41,20 @@ const authUser = asyncHandler(async (req, res) => {
 //@route POST/api/users
 //@access public
 const registerUser = asyncHandler(async (req, res) => {
-    res.send('register user');
+    //res.send('register user');
+    const { name, email, password } = req.body;
+    const userExists = await User.findOne({email});
+    
+    if (userExists) {
+        res.status(400);
+        throw new Error('User already exists');
+    }
+
+    const user = await User.create({
+        name,
+        email,
+        password
+    });
 
 });
 
@@ -49,7 +62,12 @@ const registerUser = asyncHandler(async (req, res) => {
 //@route POST/api/users/logout
 //@access private
 const logoutUser = asyncHandler(async (req, res) => {
-    res.send('logout user');
+    //res.send('logout user');
+    res.cookie('jwt','', {
+        httpOnly: true,
+        expires: new Date(0)
+    });
+    res.status(200).json({message: 'Logout successful.'})
 
 });
 
