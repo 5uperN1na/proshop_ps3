@@ -4,9 +4,9 @@ import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from "react-redux";
 import FormContainer from '../components/FormContainer';
 import Loader from '../components/Loader';
-import {useLoginMutation} from '../slices/usersApiSlice';
-import {setCredentials} from '../slices/authSlice';
-import {toast} from 'react-toastify';
+import { useLoginMutation } from '../slices/usersApiSlice';
+import { setCredentials } from '../slices/authSlice';
+import { toast } from 'react-toastify';
 
 
 const LoginScreen = () => {
@@ -16,17 +16,31 @@ const LoginScreen = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [login, {isLoading}] = useLoginMutation();
+    const [login, { isLoading }] = useLoginMutation();
 
-    const {userInfo} = useSelector((state) => state.auth);
+    const { userInfo } = useSelector((state) => state.auth);
 
-    const {search} = useLocation();
+    const { search } = useLocation();
     const sp = new URLSearchParams(search);
-    const redirect = sp.get('redirect');
+    const redirect = sp.get('redirect') || '/';
 
-    const submitHandler = (e) => {
+    useEffect(() => {
+        if (userInfo) {
+            navigate.apply(redirect);
+        }
+
+    }, [userInfo, redirect, navigate]);
+
+    const submitHandler = async (e) => {
         e.preventDefault();
-        console.log('submit')
+        try {
+            const res = await login(email, password).unwrap();
+            dispatch(setCredentials({ ...res, }));
+            navigate(redirect);
+        } catch (error) {
+            toast.error(err?.data?.message || err.error);
+
+        }
     }
 
     return (
@@ -55,10 +69,13 @@ const LoginScreen = () => {
                 <Button type='submit' variant='primary' className="mt-2">
                     Sign In
                 </Button>
+
+                {isLoading && <Loader />}
+
             </Form>
             <Row>
                 <Col>
-                New Customer? <Link to='/register'>Register</Link>
+                    New Customer? <Link to='/register'>Register</Link>
                 </Col>
             </Row>
         </FormContainer>
