@@ -37,7 +37,7 @@ const LoginScreen = () => {
             const res = await login(email, password).unwrap();
             dispatch(setCredentials({ ...res, }));
             navigate(redirect);
-        } catch (error) {
+        } catch (err) {
             toast.error(err?.data?.message || err.error);
 
         }
@@ -66,7 +66,8 @@ const LoginScreen = () => {
                     </Form.Control>
                 </Form.Group>
 
-                <Button type='submit' variant='primary' className="mt-2">
+                <Button type='submit' variant='primary' className="mt-2"
+                    disabled = { isLoading }>
                     Sign In
                 </Button>
 
@@ -75,7 +76,10 @@ const LoginScreen = () => {
             </Form>
             <Row>
                 <Col>
-                    New Customer? <Link to='/register'>Register</Link>
+                    New Customer{' '} 
+                    <Link to={redirect ? `/register?redirect=${redirect}`: '/register'}>
+                    Register
+                    </Link>
                 </Col>
             </Row>
         </FormContainer>
