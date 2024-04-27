@@ -26,19 +26,20 @@ const LoginScreen = () => {
 
     useEffect(() => {
         if (userInfo) {
-            navigate.apply(redirect);
+            navigate(redirect);
         }
 
     }, [userInfo, redirect, navigate]);
 
     const submitHandler = async (e) => {
         e.preventDefault();
+
         try {
-            const res = await login(email, password).unwrap();
+            const res = await login({email, password}).unwrap();
             dispatch(setCredentials({ ...res, }));
             navigate(redirect);
-        } catch (err) {
-            toast.error(err?.data?.message || err.error);
+        } catch (error) {
+            toast.error(error?.data?.message || error.error);
 
         }
     }
