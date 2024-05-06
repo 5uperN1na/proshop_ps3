@@ -107,9 +107,9 @@ const RegisterScreen = () => {
             </Form>
             <Row>
                 <Col>
-                    New Customer{' '} 
-                    <Link to={redirect ? `/register?redirect=${redirect}`: '/register'}>
-                    Register
+                    Already have an account?{' '} 
+                    <Link to={redirect ? `/login?redirect=${redirect}`: '/login'}>
+                    Login
                     </Link>
                 </Col>
             </Row>
