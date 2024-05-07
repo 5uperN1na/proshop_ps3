@@ -54,7 +54,7 @@ const RegisterScreen = () => {
 
     return (
         <FormContainer>
-            <h1>Sign Up</h1>
+            <h1>Register</h1>
             <Form onSubmit={submitHandler}>
 
             <Form.Group controlId='name' className="my-3">
@@ -92,14 +92,14 @@ const RegisterScreen = () => {
                     <Form.Control
                         type='password'
                         placeholder="Confirm password"
-                        value={password}
+                        value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}>
                     </Form.Control>
                 </Form.Group>
 
                 <Button type='submit' variant='primary' className="mt-2"
                     disabled = { isLoading }>
-                    Sign In
+                    Register
                 </Button>
 
                 {isLoading && <Loader />}
