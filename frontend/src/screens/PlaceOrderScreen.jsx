@@ -31,10 +31,19 @@ const PlaceOrderScreen = () => {
           <ListGroupItem>
             <h2>Shipping</h2>
             <p>
-              
+              <strong>Address:</strong>
+              {cart.shippingAddress.address}, {cart.shippingAddress.city}
+              {cart.shippingAddress.postalCode}, {cart.shippingAddress.country}
             </p>
           </ListGroupItem>
         </ListGroup>
+
+<ListGroup.Item>
+  <h2>Payment</h2>
+  <strong>Method:</strong>
+  {cart.paymentMethod}
+</ListGroup.Item>
+
         </Col>
         <Col md={4}>col</Col>
 
