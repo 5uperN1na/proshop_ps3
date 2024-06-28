@@ -59,6 +59,17 @@ const PlaceOrderScreen = () => {
                           alt={item.name}
                           fluid rounded />
                       </Col>
+
+                      <Col>
+                        <Link to={`/products/${item.product}`}>
+                          {item.name}
+                        </Link>
+                      </Col>
+
+                      <Col md={4}>
+                        {item.qty} x ${item.price} = ${item.qty * item.price}
+                      </Col>
+
                     </Row>
                   </ListGroup.Item>
                 ))}
@@ -69,7 +80,12 @@ const PlaceOrderScreen = () => {
           </ListGroup.Item>
 
         </Col>
-        <Col md={4}>col</Col>
+        <Col md={4}>
+        <Card>
+          
+        </Card>
+        
+        </Col>
 
       </Row>
 
