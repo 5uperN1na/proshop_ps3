@@ -32,10 +32,15 @@ const PlaceOrderScreen = () => {
         paymentMethod: cart.paymentMethod,
         itemsPrice: cart.itemsPrice,
         shippingPrice: cart.shippingPrice,
-        
-      })
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      }).unwrap();
+
+      dispatch(clearCartItems());
+      navigate(`/order/${res._id}`);
       
     } catch (error) {
+      toast.error(error);
       
     }
 
@@ -135,7 +140,9 @@ const PlaceOrderScreen = () => {
               </ListGroup.Item>
 
               <ListGroup.Item>
-                {error && <Message variant='danger'>{error}</Message>}
+                {error ? (
+                  <Message variant="danger">{error.message}</Message>
+                ) : null}
               </ListGroup.Item>
 
 
