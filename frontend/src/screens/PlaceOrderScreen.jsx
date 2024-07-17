@@ -25,7 +25,9 @@ const PlaceOrderScreen = () => {
   }, [cart.paymentMethod, cart.shippingAddress.address, navigate]);
 
   const placeOrderHandler = async () => {
+    console.log("Logging in place order handler.")
     try {
+      console.log('in the try block')
       const res = await createOrder ({
         orderItems: cart.cartItems,
         shippingAddress: cart.shippingAddress,
@@ -36,10 +38,13 @@ const PlaceOrderScreen = () => {
         totalPrice: cart.totalPrice,
       }).unwrap();
 
+      console.log('res: ' + JSON.stringify(res));
+
       dispatch(clearCartItems());
       navigate(`/order/${res._id}`);
       
     } catch (error) {
+      console.log('in the error block')
       toast.error(error);
       
     }
