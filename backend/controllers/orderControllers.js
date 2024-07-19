@@ -19,8 +19,8 @@ const addOrderItems = asyncHandler(async (req, res) => {
         res.status(400);
         throw new Error('No order items found.');
     } else {
-        const order = new Order ({
-            orderItems: orderItems.map((x) =>({
+        const order = new Order({
+            orderItems: orderItems.map((x) => ({
                 ...x,
                 product: x._id,
                 _id: undefined
@@ -32,17 +32,26 @@ const addOrderItems = asyncHandler(async (req, res) => {
             taxPrice,
             shippingPrice,
             totalPrice,
+
+
         });
+        const createOrder = await order.save();
+        res.status(201).json(createOrder);
+      
     }
 
+    
+
 });
+
+
 
 //@desc get logged in orders
 //@route get/api/orders/myorders
 //@access private
 const getMyOrders = asyncHandler(async (req, res) => {
-   const orders = await Order.find({user: req.user._id});
-   res.status(200).json(orders);
+    const orders = await Order.find({ user: req.user._id });
+    res.status(200).json(orders);
 
 });
 
@@ -55,9 +64,9 @@ const getOrderById = asyncHandler(async (req, res) => {
     if (order) {
         res.status(200).json(order);
 
-    }else {
+    } else {
         res.status(404);
-        throw new Error ('Order not found.')
+        throw new Error('Order not found.')
     }
 
 });
